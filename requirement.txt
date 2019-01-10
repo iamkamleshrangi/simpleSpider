@@ -11,4 +11,3 @@ requests==2.21.0
 rq==0.13.0
 soupsieve==1.6.2
 urllib3==1.24.1
-yamlns==0.6
