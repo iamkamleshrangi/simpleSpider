@@ -1,6 +1,6 @@
 from redis import Redis
 from rq import Queue
-
+from crawl import getPage
 q = Queue(connection=Redis())
 
 start_url =  'https://www.goldeneagledirect.com/index.php?pg=%s&l=product_list&c=1'
