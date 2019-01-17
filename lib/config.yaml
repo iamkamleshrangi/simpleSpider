@@ -1,9 +1,11 @@
 database:
   host: 127.0.0.1
   port: 27017
-  dbname: jobs
+  dbname: 
   password:
-  user: 
+  user:
+  spot_db: spot_db
+  spot_col: jobs
 settings:
   project_path: /Users/kamlesh/WorkSpace/TVH/
   public_path: /Users/kamlesh/WorkSpace/TVH/public/
