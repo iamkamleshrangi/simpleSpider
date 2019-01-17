@@ -6,4 +6,5 @@ database:
   user: 
 settings:
   project_path: /Users/kamlesh/WorkSpace/TVH/
-  public_path: /Users/kamlesh/WorkSpace/TVH/public
+  public_path: /Users/kamlesh/WorkSpace/TVH/public/
+

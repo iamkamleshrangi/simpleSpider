@@ -1,15 +1,16 @@
 import requests
 import os 
 import uuid
-from lib import config_handler
+from lib.config_handler import handler
 
-PATH = config_handler('settings', 'public')
+PATH = handler('settings','public_path')
 def getPage(url):
     html_content = requests.get(url).content
-    path = savePage(html_content)
+    file_path = savePage(html_content)
+    return file_path
 
 def savePage(content):
-    dir_path = PATH 
+    dir_path = PATH
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
     file_name = uuid.uuid4().hex + '.htm'
