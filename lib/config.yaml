@@ -4,3 +4,6 @@ database:
   dbname: jobs
   password:
   user: 
+settings:
+  project_path: /Users/kamlesh/WorkSpace/TVH/
+  public_path: /Users/kamlesh/WorkSpace/TVH/public
