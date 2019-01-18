@@ -7,13 +7,16 @@ PATH = handler('settings','public_path')
 def getPage(job):
     url = job['input']
     job_id = job['job_id']
-    html_content = requests.get(url).content
-    file_path = savePage(html_content)
-    job['storage_path'] = file_path
-    job['is_crawled'] = "True"
-    job['storage_id'] = getId(html_content)
-    updateJobStatus(job_id, job)
-    return True
+    page = requests.get(url)
+    if page.status_code == 200:
+        html_content = page.content
+        file_path = savePage(html_content)
+        job['storage_path'] = file_path
+        job['is_crawled'] = "True"
+        job['storage_id'] = getId(html_content)
+        updateJobStatus(job_id, job)
+        return True
+    return False
 
 def savePage(content):
     dir_path = PATH
