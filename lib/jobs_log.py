@@ -23,4 +23,4 @@ def samejobCount(storage_id):
         records = list(records)
         return len(records)
     elif status == False:
-        return 0
+        return 1
