@@ -10,10 +10,10 @@ def getPage(job):
     html_content = requests.get(url).content
     file_path = savePage(html_content)
     job['storage_path'] = file_path
-    job['is_crawled'] = True
+    job['is_crawled'] = "True"
     job['storage_id'] = getId(html_content)
     updateJobStatus(job_id, job)
-    return file_path
+    return True
 
 def savePage(content):
     dir_path = PATH
