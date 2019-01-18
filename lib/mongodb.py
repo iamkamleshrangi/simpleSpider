@@ -44,3 +44,16 @@ class operations():
             return True 
         except:
             return False
+    #Check record in the database
+    def recordExist(self, dbname, colname, condition):
+        try:
+            db = self.conn[dbname]
+            col = db[colname]
+            record_ids = list(col.find(condition, {'_id': 1 }))
+            if len(record_ids) == 0:
+                return False
+            else:
+                return True
+        except Exception as e:
+            print(e)
+            return False
