@@ -2,6 +2,7 @@ import requests, os, uuid
 from lib.config_handler import handler
 from lib.jobs_log import updateJobStatus
 from lib.common import getId
+from lib.jobs_log import checkFile, samejobCount
 
 PATH = handler('settings','public_path')
 def getPage(job):
@@ -10,11 +11,22 @@ def getPage(job):
     page = requests.get(url)
     if page.status_code == 200:
         html_content = page.content
-        file_path = savePage(html_content)
-        job['storage_path'] = file_path
+        storage_id = getId(html_content)
+        print(storage_id)
+        status, storage_path = checkFile(storage_id)
+        if status == False:
+            file_path = savePage(html_content)
+            job['storage_path'] = file_path
+        elif status == True:
+            job['storage_path'] = storage_path
+
+        job['storage_id'] = storage_id
         job['is_crawled'] = "True"
-        job['storage_id'] = getId(html_content)
+        count = samejobCount(storage_id)
+        job['crawl_count'] = count
         updateJobStatus(job_id, job)
+    else:
+        print('Already Crawled the page')
         return True
     return False
 

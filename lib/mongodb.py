@@ -27,7 +27,7 @@ class operations():
         except:
             return False
     #Find query of mongodb return an json
-    def find_to_mongo(self,dbname,colname,condition):
+    def find_in_mongo(self,dbname,colname,condition):
         try:
             db = self.conn[dbname]
             col = db[colname]
@@ -35,25 +35,39 @@ class operations():
             return True, records 
         except:
             return False, {}
+
     #Update database with json condition
     def update_to_mongo(self,dbname,colname,condition,data):
         try:
             db = self.conn[dbname]
             col = db[colname]
-            col.update(condition,{"$set":data})
+            col.update(condition,{"$set":data},upsert=True)
             return True 
+        except Exception as e:
+            print(e)
+            return False
+    #Single record update
+    def update_it(self, dbname, colname, condition, data):
+        try:
+            db = self.conn[dbname]
+            col = db[colname]
+            col.update(condition, {"$set":data})
+            return True
         except:
             return False
+
     #Check record in the database
     def recordExist(self, dbname, colname, condition):
         try:
             db = self.conn[dbname]
             col = db[colname]
-            record_ids = list(col.find(condition, {'_id': 1 }))
+            record_ids = list(col.find(condition, {'storage_path': 1 }))
             if len(record_ids) == 0:
-                return False
+                return False, None
             else:
-                return True
+                storage_path = record_ids[0]['storage_path']
+                return True, storage_path
+
         except Exception as e:
             print(e)
-            return False
+            return False, None

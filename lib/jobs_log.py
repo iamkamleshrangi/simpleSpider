@@ -10,9 +10,17 @@ def saveJob(job):
     return status
 
 def updateJobStatus(job_id, job):
-    status = obj.update_to_mongo(spot_db, spot_col, {'job_id': job_id}, job)
+    status = obj.update_it(spot_db, spot_col, {'job_id': job_id}, job)
     return status
 
 def checkFile(storage_id):
-    status = obj.recordExist(spot_db, spot_col, {'storage_id': storage_id })
-    return status
+    status, storage_path = obj.recordExist(spot_db, spot_col, {'storage_id': storage_id })
+    return status, storage_path
+
+def samejobCount(storage_id):
+    status, records = obj.find_in_mongo(spot_db, spot_col, {'storage_id': storage_id})
+    if status == True:
+        records = list(records)
+        return len(records)
+    elif status == False:
+        return 0
