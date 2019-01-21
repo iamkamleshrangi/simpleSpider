@@ -3,4 +3,5 @@ env
 __pycache__
 public
 .idea 
+.DS_Store
 
