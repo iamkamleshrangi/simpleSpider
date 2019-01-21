@@ -1,12 +1,11 @@
-from redis import Redis
-from rq import Queue
 import sys
 from datetime import datetime
 import copy
 from lib.jobs_log import saveJob
 from lib.common import getId, getguId 
+from lib.rq_queue import getConnections
 
-q = Queue(connection=Redis())
+q = getConnections()
 start_url =  'https://www.goldeneagledirect.com/index.php?pg=%s&l=product_list&c=1'
 page_starts_at = 1
 page_ends_at = 16144
@@ -33,7 +32,7 @@ for i in range(page_starts_at, page_ends_at+1):
     msg = copy.deepcopy(jobs)
     msg['input'] = page_url
     msg['job_id'] = getguId()
-    result = q.enqueue(msg['crawl_script'], msg)
+    q.enqueue(msg['crawl_script'], msg)
     saveJob(msg)
     if count == 10:
         break
