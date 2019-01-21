@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup as bs
 
 
-def parser(file_path):
-    file_path = '/Users/kamlesh/WorkSpace/TVH/public/b33cc122570c479f9b803ad882607deb.htm'
+def parser(job):
+    file_path = job['storage_path']
     with open(file_path, 'rb') as f:
         content = f.read()
     soup = bs(content, 'html.parser')
@@ -15,6 +15,3 @@ def parser(file_path):
         print(part_url)
         print('*'*50)
         count += 1
-        #break
-
-parser('')
