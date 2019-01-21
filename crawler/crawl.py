@@ -3,6 +3,7 @@ from lib.config_handler import handler
 from lib.jobs_log import updateJobStatus
 from lib.common import getId
 from lib.jobs_log import checkFile, samejobCount
+from lib.rq_queue import getConnections
 
 PATH = handler('settings','public_path')
 def getPage(job):
@@ -25,6 +26,7 @@ def getPage(job):
             job['is_crawled'] = "True"
             count = samejobCount(storage_id)
             job['crawl_count'] = count
+            result = q.enqueue(msg['parse_script'], job)
             updateJobStatus(job_id, job)
         else:
             print('Already Crawled the page')
