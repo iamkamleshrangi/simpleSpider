@@ -1,7 +1,9 @@
 from bs4 import BeautifulSoup as bs
-
+from lib.mongodb import operations
 
 def parser(job):
+    obj = operations()
+
     file_path = job['storage_path']
     with open(file_path, 'rb') as f:
         content = f.read()
@@ -11,7 +13,5 @@ def parser(job):
         part_url = item.input.get('onclick')
         part_url = part_url.replace("javascript: location.href='",'')
         part_url = part_url.replace("';",'')
-        print(count)
-        print(part_url)
-        print('*'*50)
-        count += 1
+        data = {'part_url' = part_url}
+        obj.insert_one('in', 'gold', data)
