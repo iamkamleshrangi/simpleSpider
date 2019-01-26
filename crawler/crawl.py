@@ -21,9 +21,9 @@ def getPage(job):
                 job['storage_path'] = file_path
             elif status == True:
                 job['storage_path'] = storage_path
-
             job['storage_id'] = storage_id
             job['is_crawled'] = "True"
+
             count = samejobCount(storage_id)
             job['crawl_count'] = count
             result = q.enqueue(msg['parse_script'], job)
