@@ -1,10 +1,10 @@
 import hashlib
 import uuid
 from lib.config_handler import handler
+import os 
 
-  PATH = handler('settings','public_path')
 def getId(content):
-   content_id = hashlib.md5(content.encode())
+   content_id = hashlib.md5(content)
    return content_id.hexdigest()
 
 def getguId():
