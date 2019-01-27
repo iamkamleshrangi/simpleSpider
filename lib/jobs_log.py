@@ -1,5 +1,5 @@
-from mongodb import operations
-from config_handler import handler
+from lib.mongodb import operations
+from lib.config_handler import handler
 
 obj = operations()
 spot_db = handler('database','spot_db')
