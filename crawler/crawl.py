@@ -1,18 +1,18 @@
-import requests, os, uuid
-from lib.jobs_log import updateJobStatus
+import requests
+from lib.jobs_log import updateJobStatus, checkFile, samejobCount
 from lib.common import getId, savePage
-from lib.jobs_log import checkFile, samejobCount
 from lib.rq_queue import getConnections
 
 def getPage(job):
     job_id = job['job_id']
+    q = getConnections()
+    print(q)
     try:
         url = job['input']
         page = requests.get(url)
         if page.status_code == 200:
             html_content = page.content
             storage_id = getId(html_content)
-            print(storage_id)
             status, storage_path = checkFile(storage_id)
             if status == False:
                 file_path = savePage(html_content)
@@ -24,12 +24,12 @@ def getPage(job):
 
             count = samejobCount(storage_id)
             job['crawl_count'] = count
-            result = q.enqueue(msg['parse_script'], job)
+            print(job)
+            result = q.enqueue(job['parse_script'], job)
             updateJobStatus(job_id, job)
         else:
             print('Already Crawled the page')
-            return True
-        return False
     except Exception as e:
+        print(e)
         job['errors'] = e
         updateJobStatus(job_id, job)
