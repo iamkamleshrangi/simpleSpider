@@ -20,7 +20,7 @@ jobs = {'is_crawled': 'False',
         'parse_queue': '',
         'job_script':'jobs.goldeneagledirect.jobs',
         'crawl_script': 'crawler.crawl.getPage',
-        'parse_script':'parser.goldeneagledirect.parser', 
+        'parse_script':'parser.goldeneagledirect.list_parser.parser', 
         'priorities': 'high',
         'storage_path': '',
         'crawl_count': 0 }
@@ -28,13 +28,12 @@ jobs = {'is_crawled': 'False',
 count = 1
 for i in range(page_starts_at, page_ends_at+1):
     page_url = start_url%(i)
-    page_url = 'https://www.goldeneagledirect.com/index.php?pg=15&l=product_list&c=1'
     msg = copy.deepcopy(jobs)
     msg['input'] = page_url
     msg['job_id'] = getguId()
     q.enqueue(msg['crawl_script'], msg)
     saveJob(msg)
-    if count == 10:
+    if count == 50:
         break
     count += 1
     #break
