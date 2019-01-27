@@ -1,5 +1,5 @@
 import pymongo
-from config_handler import handler
+from lib.config_handler import handler
 from pymongo import MongoClient
 
 class operations():
@@ -35,7 +35,6 @@ class operations():
             return True, records 
         except:
             return False, {}
-
     #Update database with json condition
     def update_to_mongo(self,dbname,colname,condition,data):
         try:
@@ -55,7 +54,6 @@ class operations():
             return True
         except:
             return False
-
     #Check record in the database
     def recordExist(self, dbname, colname, condition):
         try:
@@ -67,7 +65,9 @@ class operations():
             else:
                 storage_path = record_ids[0]['storage_path']
                 return True, storage_path
-
         except Exception as e:
             print(e)
             return False, None
+    #Close Connection
+    def closeConnection(self):
+        self.conn.close()
