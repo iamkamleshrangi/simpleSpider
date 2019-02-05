@@ -31,12 +31,3 @@ def getPage(job):
         print(e)
         job['errors'] = e
         updateJobStatus(job_id, job)
-
-job = {'is_crawled': 'True', 'is_parsed': 'False', 'storage_id': 'a265c56d93ef498f2cf6685162bbb993',
-        'extension': 'htm', 'insert_time': '', 'update_time': '', 'crawl_queue': '', 'parse_queue': '',
-        'domain': 'smchealth', 'job_script': 'jobs.smchealth.jobs', 'crawl_script': 'crawler.crawl.getPage',
-        'parse_script': 'parser.smchealth.parser.run', 'priorities': 'high',
-        'storage_path': '/Users/kamlesh/WorkSpace/TVH/public/e417daf35b634c1a831f9b4cdccb89c1.htm',
-        'crawl_count': 0, 'input': 'https://www.smchealth.org/smmc-find-doctor?page=10',
-        'job_id': '16efa636fa3b4782ab57c33b8afbacc2'}
-getPage(job)

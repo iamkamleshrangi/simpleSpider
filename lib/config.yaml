@@ -7,6 +7,5 @@ database:
   spot_db: spot_db
   spot_col: jobs
 settings:
-  project_path: /Users/kamlesh/WorkSpace/TVH/
-  public_path: /Users/kamlesh/WorkSpace/TVH/public/
-
+  project_path: /Users/kamlesh/WorkSpace/simpleSpider
+  public_path: /Users/kamlesh/WorkSpace/simpleSpider/public/
