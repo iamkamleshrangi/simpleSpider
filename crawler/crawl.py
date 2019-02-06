@@ -7,7 +7,7 @@ def getPage(job):
     job_id = job['job_id']
     q = getConnections()
     try:
-        url = job['input']
+        url = job['input']['url']
         page = requests.get(url)
         if page.status_code == 200:
             html_content = page.content

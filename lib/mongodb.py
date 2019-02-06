@@ -17,6 +17,15 @@ class operations():
             return True 
         except:
             return False
+    #Find Data Into The Collection
+    def find_data(self, dbname, colname):
+        try:
+            db = self.conn[dbname]
+            col = db[colname]
+            records = col.find()
+            return records
+        except:
+            return {}
     #Insert an array of records, inserted return true else false 
     def bulk_insert(self,dbname,colname,data_array):
         try:

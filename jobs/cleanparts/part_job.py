@@ -1,14 +1,10 @@
-import sys
 from datetime import datetime
-import copy
+import copy, requests, sys
 from lib.jobs_log import saveJob
 from lib.common import getId, getguId 
 from lib.rq_queue import getConnections
-
-q = getConnections()
-start_url =  'https://www.smchealth.org/smmc-find-doctor?page=%s'
-page_starts_at = 1
-page_ends_at = 10 #Define number of pages 
+from bs4 import BeautifulSoup
+from lib.mongodb import operations
 
 jobs = {'is_crawled': 'False',
         'is_parsed': 'False',
@@ -18,19 +14,19 @@ jobs = {'is_crawled': 'False',
         'update_time': datetime.utcnow(), 
         'crawl_queue': '', 
         'parse_queue': '',
-        'domain': 'smchealth',
-        'collection': 'smchealth_meta'
+        'domain': 'cleaningparts',
+        'collection': 'cleaningparts_meta',
         'job_script':'jobs.smchealth.jobs',
         'crawl_script': 'crawler.crawl.getPage',
-        'parse_script':'parser.smchealth.parser.parser', 
+        'parse_script':'parser.cleaningparts.parser.parser', 
         'priorities': 'high',
         'storage_path': '',
         'crawl_count': 0 }
 
-for i in range(page_starts_at, page_ends_at+1):
-    page_url = start_url%(i)
-    msg = copy.deepcopy(jobs)
-    msg['input'] = page_url
-    msg['job_id'] = getguId()
+q = getConnections()
+start_url =  'http://cleaningparts.pl/'
+records = operations().find_data('in', 'cleaningparts_meta')
+count = 1
+for msg in records:
     q.enqueue(msg['crawl_script'], msg)
     saveJob(msg)

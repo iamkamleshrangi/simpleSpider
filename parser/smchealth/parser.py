@@ -22,7 +22,7 @@ def parser(job):
             value = record.split(':')[1]
             value = value.replace('\xa0','')
             data[key] = value
-        obj.insert_one('in', job['domain'], data)
+        obj.insert_one('in', job['collection'], data)
 
     #Log to database 
     obj.closeConnection()
