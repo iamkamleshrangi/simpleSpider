@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup as bs
 from lib.common import getContent
 from lib.mongodb import operations
 from lib.jobs_log import updateJobStatus
-import re, datatime
+from datetime import datetime
 
 def parser(job):
     obj = operations()
