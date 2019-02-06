@@ -15,7 +15,7 @@ jobs = {'is_crawled': 'False',
         'crawl_queue': '', 
         'parse_queue': '',
         'domain': 'cleaningparts',
-        'collection': 'cleaningparts_meta',
+        'collection': 'cleaningparts_parts',
         'job_script':'jobs.smchealth.jobs',
         'crawl_script': 'crawler.crawl.getPage',
         'parse_script':'parser.cleaningparts.parser.parser', 
@@ -25,8 +25,13 @@ jobs = {'is_crawled': 'False',
 
 q = getConnections()
 start_url =  'http://cleaningparts.pl/'
-records = operations().find_data('in', 'cleaningparts_meta')
+records = operations().find_data('in', 'cleaningparts')
 count = 1
-for msg in records:
-    q.enqueue(msg['crawl_script'], msg)
-    saveJob(msg)
+for data_h in records:
+    msg = copy.deepcopy(jobs)
+    msg['input'] = {'url': data_h['part_url'], 'category': data_h['category'] }
+    msg['job_id'] = getguId()
+    print(msg)
+    print('===')
+    #q.enqueue(msg['crawl_script'], msg)
+    #saveJob(msg)
