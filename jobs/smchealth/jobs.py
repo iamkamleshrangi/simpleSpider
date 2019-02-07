@@ -19,6 +19,7 @@ jobs = {'is_crawled': 'False',
         'crawl_queue': '', 
         'parse_queue': '',
         'domain': 'smchealth',
+        'collection' : 'smchealth'
         'collection': 'smchealth_meta'
         'job_script':'jobs.smchealth.jobs',
         'crawl_script': 'crawler.crawl.getPage',
