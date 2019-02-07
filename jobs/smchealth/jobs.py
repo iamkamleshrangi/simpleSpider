@@ -19,8 +19,7 @@ jobs = {'is_crawled': 'False',
         'crawl_queue': '', 
         'parse_queue': '',
         'domain': 'smchealth',
-        'collection' : 'smchealth'
-        'collection': 'smchealth_meta'
+        'collection' : 'smchealth', 
         'job_script':'jobs.smchealth.jobs',
         'crawl_script': 'crawler.crawl.getPage',
         'parse_script':'parser.smchealth.parser.parser', 
@@ -31,7 +30,7 @@ jobs = {'is_crawled': 'False',
 for i in range(page_starts_at, page_ends_at+1):
     page_url = start_url%(i)
     msg = copy.deepcopy(jobs)
-    msg['input'] = page_url
+    msg['input'] = {'url': page_url}
     msg['job_id'] = getguId()
     q.enqueue(msg['crawl_script'], msg)
     saveJob(msg)

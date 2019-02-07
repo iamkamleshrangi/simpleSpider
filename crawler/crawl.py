@@ -2,7 +2,6 @@ import requests #ADD PROXIES
 from lib.jobs_log import updateJobStatus, checkFile, samejobCount
 from lib.common import getId, savePage
 from lib.rq_queue import getConnections
-from datetime import datetime
 
 def getPage(job):
     job_id = job['job_id']
@@ -21,7 +20,6 @@ def getPage(job):
                 job['storage_path'] = storage_path
             job['storage_id'] = storage_id
             job['is_crawled'] = "True"
-            job['update_time'] = datetime.utcnow()
             count = samejobCount(storage_id)
             job['crawl_count'] = count
             result = q.enqueue(job['parse_script'], job)
