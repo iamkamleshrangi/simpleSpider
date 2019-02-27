@@ -7,8 +7,6 @@ from lib.rq_queue import getConnections
 
 q = getConnections()
 start_url =  'https://treasurevalleyhospital.com/our-doctors'
-page_starts_at = 1
-page_ends_at = 100 #Define number of pages 
 
 jobs = {'is_crawled': 'False',
         'is_parsed': 'False',
