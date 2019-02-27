@@ -9,19 +9,15 @@ def parser(job):
     file_path = job['storage_path']
     content = getContent(file_path)
     soup = bs(content, 'html.parser')
-    records = soup.find_all('div',{"class":"view-content"})[3]
-    for record in records.find_all('article'):
+    records = soup.find_all('article')
+    for record in records:
+        doctor_name = record.find('h1').text.strip()
+        info = record.find('div', {'class':'art-postcontent clearfix'})
+        info = '; '.join([i.text for i in info.find_all('p')])
         data = dict()
         data['job_id'] = job['job_id']
-        data['doctor_name'] = record.find('span',{"class":"title"}).text.strip()
-        info = record.find('p')
-        info = str(info).replace('/','')
-        info = re.sub('\<p\>|\<strong\>','', info)
-        for record in info.split('<br>'):
-            key = record.split(':')[0].lower()
-            value = record.split(':')[1]
-            value = value.replace('\xa0','')
-            data[key] = value
+        data['doctor_name'] = doctor_name
+        data['info'] = re.sub('\n+', ' ', info)
         obj.insert_one('in', job['collection'], data)
 
     #Log to database 
