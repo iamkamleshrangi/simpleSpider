@@ -24,6 +24,7 @@ def parser(job):
             value = record.split(':')[1]
             value = value.replace('\xa0','')
             data[key] = value
+
         #Collection Insert
         obj.insert_one('in', job['collection'], data)
 
