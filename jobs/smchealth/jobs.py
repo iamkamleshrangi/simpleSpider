@@ -8,7 +8,7 @@ from lib.rq_queue import getConnections
 q = getConnections()
 start_url =  'https://www.smchealth.org/smmc-find-doctor?page=%s'
 page_starts_at = 1
-page_ends_at = 100 #Define number of pages 
+page_ends_at = 17 #Define number of pages 
 
 jobs = {'is_crawled': 'False',
         'is_parsed': 'False',
