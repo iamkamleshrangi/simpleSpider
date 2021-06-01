@@ -18,4 +18,4 @@ rq==0.13.0
 rq-dashboard==0.4.0
 six==1.12.0
 soupsieve==1.6.2
-urllib3==1.24.1
+urllib3==1.26.5
